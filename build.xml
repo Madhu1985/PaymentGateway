@@ -1,0 +1,56 @@
+<?xml version="1.0" ?>
+<project name="PaymentGateway" default="war">
+ 
+    <path id="compile.classpath">
+        <fileset dir="WebContent/WEB-INF/lib">
+            <include name="*.*"/>
+        </fileset>
+    </path>
+     
+     <target name="clean">
+        <delete dir="dist" />
+        <delete dir="build" />
+    </target>
+    
+    <target name="init" depends="clean">
+        <mkdir dir="build/classes"/>
+        <mkdir dir="dist" />
+    </target>
+    
+    
+     
+    <target name="compile" depends="init" >
+        <javac destdir="build/classes" debug="true" srcdir="src" includeantruntime="false">
+            <classpath refid="compile.classpath"/>
+            
+        </javac>
+    </target>
+    
+    <target name="copy-struts-files">
+    <copy todir="build/classes">
+    <fileset dir="src">
+    	<include name="struts.xml"/>
+    </fileset> 
+    </copy>
+    </target>
+    
+    <target name="copy-hbm-files">
+    <copy todir="build/classes/com/pg/model">
+    <fileset dir="src/com/pg/model">
+    	<include name="User.hbm.xml"/>
+    </fileset> 
+    </copy>
+    </target>
+     
+    <target name="war" depends="compile,copy-struts-files,copy-hbm-files">
+    	<war destfile="dist/PaymentGateway.war" webxml="WebContent/WEB-INF/web.xml">
+            <fileset dir="WebContent"/>
+            <lib dir="WebContent/WEB-INF/lib"/>
+            <classes dir="build/classes"/>
+            
+        </war>
+    </target>
+     
+    
+     
+</project>
