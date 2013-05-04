@@ -13,7 +13,7 @@
     </target>
     
     <target name="init" depends="clean">
-        <mkdir dir="build/classes"/>
+        <mkdir dir="build/classes"/> 
         <mkdir dir="dist" />
     </target>
     
